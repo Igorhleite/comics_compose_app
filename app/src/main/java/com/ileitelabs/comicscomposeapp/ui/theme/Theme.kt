@@ -1,4 +1,4 @@
-package com.ileitelabs.comicscomposeapp.ui.theme
+    package com.ileitelabs.comicscomposeapp.ui.theme
 
 import android.app.Activity
 import android.os.Build
