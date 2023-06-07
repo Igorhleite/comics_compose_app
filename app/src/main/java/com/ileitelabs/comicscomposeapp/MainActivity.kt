@@ -4,13 +4,29 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.ileitelabs.comicscomposeapp.ui.theme.ComicsComposeAppTheme
+import com.ileitelabs.comicscomposeapp.view.CollectionScreen
+import com.ileitelabs.comicscomposeapp.view.LibraryScreen
+
+sealed class Destination(val route: String) {
+    object Library : Destination(route = "library")
+    object Collection : Destination(route = "collection")
+    object CharacterDetail : Destination(route = "character/{characterId]") {
+        fun createRoute(characterId: Int?) = "character/$characterId"
+    }
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,9 +36,10 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+                    CharactersScaffold(navController = navController)
                 }
             }
         }
@@ -30,17 +47,24 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+private fun CharactersScaffold(navController: NavHostController) {
+    val scaffoldState = rememberScaffoldState()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ComicsComposeAppTheme {
-        Greeting("Android")
+    Scaffold(
+        scaffoldState = scaffoldState,
+        bottomBar = {}
+    ) { paddingValues ->
+        NavHost(navController = navController, startDestination = Destination.Library.route) {
+            composable(Destination.Library.route) {
+                LibraryScreen()
+            }
+            composable(Destination.Collection.route) {
+                CollectionScreen()
+            }
+            composable(Destination.CharacterDetail.route) { navBackStackEntry ->
+                
+            }
+        }
+
     }
 }
