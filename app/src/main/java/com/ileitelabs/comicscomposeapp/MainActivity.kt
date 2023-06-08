@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ileitelabs.comicscomposeapp.view.CharactersBottomNav
 import com.ileitelabs.comicscomposeapp.view.CollectionScreen
 import com.ileitelabs.comicscomposeapp.view.LibraryScreen
+import dagger.hilt.android.AndroidEntryPoint
 
 sealed class Destination(val route: String) {
     object Library : Destination(route = "library")
@@ -25,7 +26,7 @@ sealed class Destination(val route: String) {
         fun createRoute(characterId: Int?) = "character/$characterId"
     }
 }
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
