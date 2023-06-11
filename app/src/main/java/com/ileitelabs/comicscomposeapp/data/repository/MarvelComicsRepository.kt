@@ -1,6 +1,6 @@
 package com.ileitelabs.comicscomposeapp.data.repository
 
-import com.ileitelabs.comicscomposeapp.data.CharactersResponse
+import com.ileitelabs.comicscomposeapp.data.remote.model.CharactersResponse
 import com.ileitelabs.comicscomposeapp.data.remote.MarvelApi
 import com.ileitelabs.comicscomposeapp.data.remote.NetworkResult
 import kotlinx.coroutines.flow.MutableStateFlow

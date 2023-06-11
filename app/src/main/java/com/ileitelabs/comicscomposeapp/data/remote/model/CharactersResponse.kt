@@ -1,4 +1,4 @@
-package com.ileitelabs.comicscomposeapp.data
+package com.ileitelabs.comicscomposeapp.data.remote.model
 
 data class CharactersResponse(
     val code: String?,

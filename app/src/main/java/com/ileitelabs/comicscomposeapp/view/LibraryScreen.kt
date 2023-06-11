@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
@@ -37,7 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.ileitelabs.comicscomposeapp.Destination
-import com.ileitelabs.comicscomposeapp.data.CharactersResponse
+import com.ileitelabs.comicscomposeapp.data.remote.model.CharactersResponse
 import com.ileitelabs.comicscomposeapp.data.remote.NetworkResult
 import com.ileitelabs.comicscomposeapp.viewmodel.MarvelComicsViewModel
 

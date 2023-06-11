@@ -1,6 +1,6 @@
 package com.ileitelabs.comicscomposeapp.data.remote
 
-import com.ileitelabs.comicscomposeapp.data.CharactersResponse
+import com.ileitelabs.comicscomposeapp.data.remote.model.CharactersResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
