@@ -36,8 +36,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.ileitelabs.comicscomposeapp.Destination
-import com.ileitelabs.comicscomposeapp.data.remote.model.CharactersResponse
 import com.ileitelabs.comicscomposeapp.data.remote.NetworkResult
+import com.ileitelabs.comicscomposeapp.data.remote.model.CharactersResponse
 import com.ileitelabs.comicscomposeapp.viewmodel.MarvelComicsViewModel
 
 @Composable
@@ -127,12 +127,13 @@ fun ShowCharactersList(
                         .fillMaxWidth()
                         .wrapContentHeight()
                         .clickable {
-                            if (character.id != null)
+                            if (character.id != null) {
                                 navController.navigate(Destination.CharacterDetail.createRoute(id))
-                            else
+                            } else {
                                 Toast
                                     .makeText(context, "Character id is null", Toast.LENGTH_SHORT)
                                     .show()
+                            }
                         }
                 ) {
                     Row(modifier = Modifier.fillMaxWidth()) {

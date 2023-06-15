@@ -27,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 sealed class Destination(val route: String) {
     object Library : Destination(route = "library")
     object Collection : Destination(route = "collection")
-    object CharacterDetail : Destination(route = "character/{characterId]") {
+    object CharacterDetail : Destination(route = "character/{characterId}") {
         fun createRoute(characterId: Int?) = "character/$characterId"
     }
 }
@@ -82,7 +82,6 @@ private fun CharactersScaffold(navController: NavHostController, viewModel: Marv
                         navController = navController
                     )
                 }
-
             }
         }
 
