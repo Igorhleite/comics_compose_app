@@ -1,6 +1,7 @@
 package com.ileitelabs.comicscomposeapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -11,10 +12,12 @@ import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ileitelabs.comicscomposeapp.view.CharacterDetailScreen
 import com.ileitelabs.comicscomposeapp.view.CharactersBottomNav
 import com.ileitelabs.comicscomposeapp.view.CollectionScreen
 import com.ileitelabs.comicscomposeapp.view.LibraryScreen
@@ -50,6 +53,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun CharactersScaffold(navController: NavHostController, viewModel: MarvelComicsViewModel) {
     val scaffoldState = rememberScaffoldState()
+    val context = LocalContext.current
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -67,6 +71,17 @@ private fun CharactersScaffold(navController: NavHostController, viewModel: Marv
                 CollectionScreen()
             }
             composable(Destination.CharacterDetail.route) { navBackStackEntry ->
+                val id = navBackStackEntry.arguments?.getString("characterId")?.toIntOrNull()
+                if (id == null)
+                    Toast.makeText(context, "Character not found", Toast.LENGTH_SHORT).show()
+                else {
+                    viewModel.retrieveSingleCharacter(id)
+                    CharacterDetailScreen(
+                        viewModel = viewModel,
+                        paddingValues = paddingValues,
+                        navController = navController
+                    )
+                }
 
             }
         }

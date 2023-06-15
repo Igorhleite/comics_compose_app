@@ -1,8 +1,10 @@
 package com.ileitelabs.comicscomposeapp.data.repository
 
-import com.ileitelabs.comicscomposeapp.data.remote.model.CharactersResponse
+import androidx.compose.runtime.mutableStateOf
 import com.ileitelabs.comicscomposeapp.data.remote.MarvelApi
 import com.ileitelabs.comicscomposeapp.data.remote.NetworkResult
+import com.ileitelabs.comicscomposeapp.data.remote.model.CharacterResult
+import com.ileitelabs.comicscomposeapp.data.remote.model.CharactersResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import retrofit2.Call
 import retrofit2.Callback
@@ -10,7 +12,7 @@ import retrofit2.Response
 
 class MarvelComicsRepository(private val api: MarvelApi) {
     val characters = MutableStateFlow<NetworkResult<CharactersResponse>>(NetworkResult.Initial())
-
+    val characterDetail = mutableStateOf<CharacterResult?>(null)
     fun query(query: String) {
         characters.value = NetworkResult.Loading()
         api.getCharacters(query)
@@ -34,5 +36,14 @@ class MarvelComicsRepository(private val api: MarvelApi) {
                     }
                 }
             })
+    }
+
+    fun getSingleCharacter(id: Int?) {
+        id?.let {
+            characterDetail.value =
+                characters.value.data?.data?.results?.firstOrNull { characterResult ->
+                    characterResult.id == id
+                }
+        }
     }
 }
